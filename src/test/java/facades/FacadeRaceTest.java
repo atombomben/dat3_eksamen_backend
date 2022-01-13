@@ -42,11 +42,37 @@ public class FacadeRaceTest {
 
     
     @Test
-    public void testGetPersonByAddress() throws API_Exception {
-        
+    public void testGetRaces() throws API_Exception {
         List<Race> races = facade.getAllRacesFromEntity();
         assertEquals(2,races.size());
-       
     }
+    
+    @Test
+    public void testCreateRace() throws API_Exception {
+        Race race = new Race("Test","Test","Test","Test");
+        facade.createRace(race);
+        List<Race> races = facade.getAllRacesFromEntity();
+        assertEquals(3, races.size());
+    }
+    
+    /*
+    @Test
+    public void testGetPersonById(){
+        Race persons = facade.getRaceById(StartDataSet.r1.getId());
+        assertEquals(StartDataSet.r1.getName(),persons.getName());
+    }
+    
+    @Test
+    public void testEditRace() {
+        Race race = new Race("Test","Test","Test","Test");
+        facade.createRace(race);
+        race.setName("testEDITED");
+        facade.editRace(race);
+        Race edittedRaceTest = facade.getRaceById(8);
+        assertEquals("test", edittedRaceTest.getName());
+    }
+*/
+    
+    
     
 }

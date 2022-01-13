@@ -7,6 +7,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.carRace.CarDTO;
 import dtos.carRace.RaceDTO;
 import errorhandling.API_Exception;
 import facades.RaceFacade;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -45,4 +47,18 @@ public class RaceResource {
         return Response.ok().entity(GSON.toJson(raceDTOs)).build();
     }
     
+    
+    @Path("{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response showCars(@PathParam("id") long id) {
+    
+        RaceDTO raceDTO = new RaceDTO(FACADE.getRaceById(id));
+        List<CarDTO> carDTOs = CarDTO.getDTOs(FACADE.getCarsByRace(id));
+        raceDTO.setCars(carDTOs);
+        return Response.ok().entity(GSON.toJson(raceDTO)).build();
+        
+    }
+    
 }
+

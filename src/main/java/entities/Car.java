@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
  * @author peter
  */
 @Entity
+@NamedQuery(name = "Car.deleteAllRows", query = "DELETE from Car")
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,8 +38,7 @@ public class Car implements Serializable {
     @OneToMany(mappedBy = "car", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Driver> drivers;
     
-    @ManyToMany
-    @JoinColumn(name = "cars")
+    @ManyToMany(mappedBy = "cars")
     private List<Race> races;
 
     public Car() {
@@ -58,6 +59,10 @@ public class Car implements Serializable {
 
     public void setRaces(List<Race> races) {
         this.races = races;
+    }
+    
+       public void addRace(Race race){
+            this.races.add(race);
     }
 
     public Long getId() {

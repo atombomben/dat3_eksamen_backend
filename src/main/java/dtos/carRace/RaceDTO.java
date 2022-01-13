@@ -20,6 +20,7 @@ public class RaceDTO {
     private String date;
     private String time;
     private String location;
+    List<CarDTO> cars;
 
     public RaceDTO(String name, String date, String time, String location) {
         this.name = name;
@@ -41,6 +42,14 @@ public class RaceDTO {
         races.forEach(race->dtos.add(new RaceDTO(race)));
         return dtos;
     }
+        
+    public List<CarDTO> getCars(){
+        return cars;
+    }
+
+    public Long getId() {
+        return id;
+    }    
 
     public String getName() {
         return name;
@@ -72,6 +81,10 @@ public class RaceDTO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setCars(List<CarDTO> cars) {
+        this.cars = cars;
     }
     
 }

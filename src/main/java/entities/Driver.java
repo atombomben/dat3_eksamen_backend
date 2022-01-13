@@ -44,6 +44,15 @@ public class Driver implements Serializable {
         this.gender = gender;
     }
 
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+   
+
     public String getName() {
         return name;
     }
@@ -68,8 +77,6 @@ public class Driver implements Serializable {
         this.gender = gender;
     }
     
-    
-
     public Long getId() {
         return id;
     }

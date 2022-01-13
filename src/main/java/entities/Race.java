@@ -5,6 +5,7 @@
  */
 package entities;
 
+import dtos.carRace.RaceDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 
@@ -33,8 +35,17 @@ public class Race implements Serializable {
     String date;
     String time;
     String location;
-
-    @ManyToMany(mappedBy = "races",  cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    
+    
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE,
+        CascadeType.REMOVE
+    })
+        @JoinTable(name = "CAR_RACE",
+        joinColumns = @JoinColumn(name = "races_id"),
+        inverseJoinColumns = @JoinColumn(name = "cars_id")
+    )
     private List<Car> cars;
      
     public Race() {
@@ -47,6 +58,14 @@ public class Race implements Serializable {
         this.location = location;
         this.cars = new ArrayList<>();
     }
+    
+    public Race(RaceDTO raceDTO) {
+       if (raceDTO.getId() != null) this.id = raceDTO.getId();
+       this.name = raceDTO.getName();
+       this.date = raceDTO.getDate();
+       this.time = raceDTO.getTime();
+       this.location = raceDTO.getLocation();
+   }
     
        public List<Car> getCars() {
         return cars;

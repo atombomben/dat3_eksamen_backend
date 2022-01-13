@@ -83,8 +83,9 @@ public class RaceEndpointTest {
         given().when().get("/race").then().statusCode(200);
     }
     
+    
     @Test
-    public void testAllOwners(){
+    public void testAllRaces(){
         given()
                 .contentType(MediaType.APPLICATION_JSON)
                 .get("/race/show").then()
@@ -92,4 +93,5 @@ public class RaceEndpointTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("name", contains("Grand tour","Grand tour"));
     }
+
 }
