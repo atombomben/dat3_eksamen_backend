@@ -25,10 +25,7 @@ import javax.persistence.TypedQuery;
 import utils.Utility;
 import utils.api.MakeOptions;
 
-/**
- *
- * @author mikke
- */
+
 public class ExamFacade {
     private static EntityManagerFactory emf;
     private static ExamFacade instance;

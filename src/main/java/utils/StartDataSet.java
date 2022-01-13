@@ -1,5 +1,6 @@
 package utils;
 
+import entities.Race;
 import entities.Role;
 import entities.User;
 
@@ -25,6 +26,7 @@ public class StartDataSet {
             em.getTransaction().begin();
             em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Race.deleteAllRows").executeUpdate();
 
 
 
@@ -34,6 +36,9 @@ public class StartDataSet {
 
             userRole = new Role("user");
             adminRole = new Role("admin");
+            
+            Race r1 = new Race("Grand tour", "13-01-2022", "22:00:00", "Danmark");
+            Race r2 = new Race("Grand tour", "14-01-2022", "20:00:00", "Danmark");
 
             user.addRole(userRole);
             admin.addRole(adminRole);
@@ -46,6 +51,9 @@ public class StartDataSet {
             em.persist(user);
             em.persist(admin);
             em.persist(both);
+            
+            em.persist(r1);
+            em.persist(r2);
 
             em.getTransaction().commit();
 
