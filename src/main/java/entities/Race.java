@@ -36,7 +36,7 @@ public class Race implements Serializable {
 
     @ManyToMany(mappedBy = "races",  cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Car> cars;
-    
+     
     public Race() {
     }
 
@@ -98,8 +98,6 @@ public class Race implements Serializable {
         this.location = location;
     }
     
-    
-
     public Long getId() {
         return id;
     }
