@@ -55,23 +55,33 @@ public class FacadeRaceTest {
         assertEquals(3, races.size());
     }
     
-    /*
+    
     @Test
-    public void testGetPersonById(){
-        Race persons = facade.getRaceById(StartDataSet.r1.getId());
-        assertEquals(StartDataSet.r1.getName(),persons.getName());
+    public void testGetPersonById() throws API_Exception{
+        List<Race> races = facade.getAllRacesFromEntity();
+        Race race = facade.getRaceById(races.get(1).getId());
+        assertEquals(races.get(1).getId(),race.getId());
     }
     
     @Test
-    public void testEditRace() {
-        Race race = new Race("Test","Test","Test","Test");
-        facade.createRace(race);
+    public void testEditRace() throws API_Exception {
+        List<Race> races = facade.getAllRacesFromEntity();
+        Race race = facade.getRaceById(races.get(1).getId());
         race.setName("testEDITED");
         facade.editRace(race);
-        Race edittedRaceTest = facade.getRaceById(8);
-        assertEquals("test", edittedRaceTest.getName());
+        Race edittedRaceTest = facade.getRaceById(race.getId());
+        assertEquals("testEDITED", edittedRaceTest.getName());
     }
-*/
+
+    @Test
+    public void testRemoveRace() throws API_Exception{
+        
+        List<Race> races = facade.getAllRacesFromEntity();
+        Race race = facade.getRaceById(races.get(1).getId());
+        facade.removeRace(race.getId());
+        assertEquals(1,facade.getAllRacesFromEntity().size());
+        
+    }
     
     
     
