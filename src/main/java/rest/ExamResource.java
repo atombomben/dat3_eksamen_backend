@@ -27,7 +27,6 @@ import javax.ws.rs.core.SecurityContext;
 
 import facades.ExamFacade;
 import utils.EMF_Creator;
-import utils.Utility;
 
 
 @Path("exam")
