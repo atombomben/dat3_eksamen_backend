@@ -25,10 +25,6 @@ public class FacadeTest {
     private static UserFacade userFacade;
     private static ExamFacade facade;
 
-
-
-
-
     public FacadeTest() {
     }
 
@@ -62,7 +58,6 @@ public class FacadeTest {
 
         assertEquals(_both.getUserName(), StartDataSet.both.getUserName());
     }
-
 
 
     @Test

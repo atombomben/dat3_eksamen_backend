@@ -5,12 +5,20 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import dtos.carRace.RaceDTO;
 import entities.Race;
 import errorhandling.API_Exception;
 import facades.RaceFacade;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
+import static io.restassured.path.json.config.JsonParserType.GSON;
+import io.restassured.specification.RequestSpecification;
 import java.net.URI;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -20,7 +28,8 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import static org.hamcrest.Matchers.contains;
+import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,6 +51,7 @@ public class RaceEndpointTest {
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
     private static RaceFacade facade;
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 
 
@@ -80,27 +90,34 @@ public class RaceEndpointTest {
         StartDataSet.setupInitialData(emf);
     }
     
-    
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
         given().when().get("/race").then().statusCode(200);
     }
     
-/*
-    
+    //This test assumes the database contains two rows
     @Test
-    public void testAllRaces(){
+    public void testWelcomeMsg() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/race/").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("msg", equalTo("Welcome to RacePage"));
+    }
+    
+
+    @Test
+    public void testShowAllRaces(){
         given()
                 .contentType(MediaType.APPLICATION_JSON)
                 .get("/race/show").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("name", contains("24 Hours of Le Mans", "Indianapolis 500", "Monaco Grand Prix"));
+                .body("name", Matchers.hasItems("24 Hours of Le Mans", "Indianapolis 500", "Monaco Grand Prix"));
     }
 
-*/
-    
     @Test
     public void testGetRaceById() throws API_Exception {
         List<Race> races = facade.getAllRacesFromEntity();
@@ -113,5 +130,51 @@ public class RaceEndpointTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("name", is(race.getName()));
     }
+    
+    @Test       //Shows the same Race 3 times and the specifik Cars
+    public void testShowSpecifikCarsFromRace() throws API_Exception {
+        List<Race> races = facade.getAllRacesFromEntity();
+        Race race = facade.getRaceById(races.get(1).getId());
+        
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .when()
+                .get("/race/"+race.getId().intValue()).then()
+                .statusCode(200)
+                .body("size()", is(6));
+    }
+    
+    /*
+    
+    @Test
+    public void testAddRace() {
+       
+       RaceDTO rDTO = new RaceDTO();
+       rDTO.setName("Test1");
+       rDTO.setDate("Test2");
+       rDTO.setTime("Test3");
+       rDTO.setLocation("Test4");
+       
+       String body = GSON.ToJson(rDTO);
+       
+        given()
+        .contentType("application/json")
+        .and()
+        .body(body)
+        .when()
+        .post("/addrace")
+        .then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode());
+    }
    
+    
+    
+    @Test
+    public void editRace() {
+        
+    }
+
+    */
 }

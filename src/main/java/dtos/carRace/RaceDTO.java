@@ -21,6 +21,9 @@ public class RaceDTO {
     private String time;
     private String location;
     List<CarDTO> cars;
+    
+        public RaceDTO() {
+    }
 
     public RaceDTO(String name, String date, String time, String location) {
         this.name = name;
@@ -42,10 +45,15 @@ public class RaceDTO {
         races.forEach(race->dtos.add(new RaceDTO(race)));
         return dtos;
     }
-        
-        public Race CreateRace() {
-            return new Race(this);
-        }
+
+
+    public Race CreateRace() {
+        return new Race(this);
+    }
+    
+    public Race setRace() {
+        return new Race(this);
+    }
         
     public List<CarDTO> getCars(){
         return cars;

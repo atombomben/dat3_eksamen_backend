@@ -33,11 +33,6 @@ import javax.ws.rs.core.Response;
 import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
 
-/**
- * REST Web Service
- *
- * @author christianrosenbaek
- */
 @Path("user")
 public class UserResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();

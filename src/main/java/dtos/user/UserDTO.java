@@ -9,10 +9,6 @@ import entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author mikke
- */
 public class UserDTO {
     private String username;
     private String password;

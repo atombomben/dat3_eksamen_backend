@@ -15,6 +15,7 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -30,7 +31,6 @@ import utils.EMF_Creator;
 public class RaceResource {
     
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
-       
     private static final RaceFacade FACADE =  RaceFacade.getRaceFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             
@@ -48,7 +48,6 @@ public class RaceResource {
         return Response.ok().entity(GSON.toJson(raceDTOs)).build();
     }
     
-    
     @Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,17 +58,27 @@ public class RaceResource {
         raceDTO.setCars(carDTOs);
         return Response.ok().entity(GSON.toJson(raceDTO)).build();
         
-    }
-    
+    } 
     @Path("addrace")
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     public Response addRace(String jsonString){
         
-        RaceDTO rDTO = GSON.fromJson(jsonString, RaceDTO.class);;
+        RaceDTO rDTO = GSON.fromJson(jsonString, RaceDTO.class);
         FACADE.createRace(rDTO.CreateRace());
         
         return Response.ok(rDTO).status(201).build();
+    }
+    
+    @Path("editrace")
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response editRace(String jsonString){
+        
+        RaceDTO rDTO = GSON.fromJson(jsonString,RaceDTO.class);
+        FACADE.editRace(rDTO.setRace());
+        
+        return Response.ok(rDTO).status(201).build();   
     }
     
 }

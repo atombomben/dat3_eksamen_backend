@@ -8,13 +8,11 @@ package facades;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entities.Car;
-import entities.Race;
 import errorhandling.API_Exception;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -36,8 +34,6 @@ public class CarFacade {
         }
         return instance;
     }
-    
-    
     
     public List<Car> getAllCarsFromEntity() throws API_Exception {
         
