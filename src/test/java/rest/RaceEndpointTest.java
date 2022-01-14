@@ -145,7 +145,7 @@ public class RaceEndpointTest {
                 .body("size()", is(6));
     }
     
-    /*
+    
     
     @Test
     public void testAddRace() {
@@ -156,25 +156,17 @@ public class RaceEndpointTest {
        rDTO.setTime("Test3");
        rDTO.setLocation("Test4");
        
-       String body = GSON.ToJson(rDTO);
+       String body = GSON.toJson(rDTO);
        
         given()
         .contentType("application/json")
         .and()
         .body(body)
         .when()
-        .post("/addrace")
+        .post("/race/addrace")
         .then()
         .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode());
+        .statusCode(201);
     }
-   
     
-    
-    @Test
-    public void editRace() {
-        
-    }
-
-    */
 }
