@@ -44,7 +44,7 @@ public class FacadeRaceTest {
     @Test
     public void testGetRaces() throws API_Exception {
         List<Race> races = facade.getAllRacesFromEntity();
-        assertEquals(2,races.size());
+        assertEquals(3,races.size());
     }
     
     @Test
@@ -52,7 +52,7 @@ public class FacadeRaceTest {
         Race race = new Race("Test","Test","Test","Test");
         facade.createRace(race);
         List<Race> races = facade.getAllRacesFromEntity();
-        assertEquals(3, races.size());
+        assertEquals(4, races.size());
     }
     
     
@@ -79,10 +79,9 @@ public class FacadeRaceTest {
         List<Race> races = facade.getAllRacesFromEntity();
         Race race = facade.getRaceById(races.get(1).getId());
         facade.removeRace(race.getId());
-        assertEquals(1,facade.getAllRacesFromEntity().size());
+        assertEquals(2,facade.getAllRacesFromEntity().size());
         
     }
-    
     
     
 }

@@ -95,7 +95,7 @@ public class RaceEndpointTest {
                 .get("/race/show").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("name", contains("Grand tour","Grand tour"));
+                .body("name", contains("24 Hours of Le Mans", "Indianapolis 500", "Monaco Grand Prix"));
     }
     
     @Test
@@ -110,6 +110,5 @@ public class RaceEndpointTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("name", is(race.getName()));
     }
-    
-
+   
 }
