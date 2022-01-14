@@ -43,6 +43,10 @@ public class RaceDTO {
         return dtos;
     }
         
+        public Race CreateRace() {
+            return new Race(this);
+        }
+        
     public List<CarDTO> getCars(){
         return cars;
     }

@@ -31,10 +31,10 @@ public class Race implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String name;
-    String date;
-    String time;
-    String location;
+    private String name;
+    private String date;
+    private String time;
+    private String location;
     
     
     @ManyToMany(cascade = {

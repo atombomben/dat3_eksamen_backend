@@ -5,11 +5,14 @@
  */
 package rest;
 
+import entities.Race;
+import errorhandling.API_Exception;
 import facades.RaceFacade;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
@@ -18,6 +21,7 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,5 +97,19 @@ public class RaceEndpointTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("name", contains("Grand tour","Grand tour"));
     }
+    
+    @Test
+    public void testGetRaceById() throws API_Exception {
+        List<Race> races = facade.getAllRacesFromEntity();
+        Race race = facade.getRaceById(races.get(1).getId());
+        
+        given()
+                .contentType("application/json")
+                .get("/race/"+race.getId().intValue()).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("name", is(race.getName()));
+    }
+    
 
 }
