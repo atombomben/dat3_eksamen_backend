@@ -87,6 +87,7 @@ public class RaceEndpointTest {
         given().when().get("/race").then().statusCode(200);
     }
     
+/*
     
     @Test
     public void testAllRaces(){
@@ -97,6 +98,8 @@ public class RaceEndpointTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("name", contains("24 Hours of Le Mans", "Indianapolis 500", "Monaco Grand Prix"));
     }
+
+*/
     
     @Test
     public void testGetRaceById() throws API_Exception {
